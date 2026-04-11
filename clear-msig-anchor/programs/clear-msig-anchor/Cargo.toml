@@ -1,0 +1,29 @@
+[package]
+name = "clear-msig-anchor"
+version = "0.1.0"
+description = "Clear-sign multisig wallet - Anchor v2 port"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "clear_msig_anchor"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-log-ix-name = []
+idl-build = ["anchor-lang-v2/idl-build"]
+
+[dependencies]
+anchor-lang-v2 = { git = "https://github.com/solana-foundation/anchor.git", rev = "1a89ebb6ef78da0c67ca2fc70fcf9f725b93cecf", default-features = false, features = ["alloc"] }
+pinocchio = { version = "0.11", features = ["copy"] }
+borsh = "1.5"
+wincode = "0.4"
+solana-address = { version = "2.2.0", features = ["syscalls", "curve25519", "wincode"] }
+solana-program-error = "3.0"
+solana-instruction-view = "2"
+brine-ed25519 = { git = "https://github.com/ChewingGlass/brine-ed25519", default-features = false }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }

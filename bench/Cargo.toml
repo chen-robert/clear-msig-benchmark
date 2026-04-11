@@ -1,0 +1,23 @@
+[package]
+name = "clear-msig-bench"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+anchor-bench = { git = "https://github.com/solana-foundation/anchor.git", rev = "1a89ebb6ef78da0c67ca2fc70fcf9f725b93cecf", default-features = false }
+anchor-lang-v2 = { git = "https://github.com/solana-foundation/anchor.git", rev = "1a89ebb6ef78da0c67ca2fc70fcf9f725b93cecf" }
+clear-msig-anchor = { path = "../clear-msig-anchor/programs/clear-msig-anchor", features = ["no-entrypoint"] }
+anyhow = "1.0"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+litesvm = "0.10.0"
+rand = "0.8"
+sha2 = "0.10"
+solana-instruction = "3.0"
+solana-keypair = "3.0.1"
+solana-message = "3.0.1"
+solana-pubkey = "3.0.0"
+solana-signer = "3.0.0"
+solana-transaction = "3.0.1"
+tempfile = "3"
+wincode = "0.4"

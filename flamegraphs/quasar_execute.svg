@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 181">
+  <style>
+    .title { font: 700 24px monospace; fill: #1f1f1f; }
+    .subtitle { font: 14px monospace; fill: #4b4b4b; }
+    .button-label { font: 12px monospace; fill: #222; dominant-baseline: middle; text-anchor: middle; }
+    .button-rect { fill: #f3f3f3; stroke: #b8b8b8; stroke-width: 1; }
+  </style>
+  <rect width="1600" height="181" fill="#ffffff" />
+  <text x="8" y="30" class="title">execute flamegraph</text>
+  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 767 (does not include CPI or syscall CU)</text>
+  <g id="reset-button" transform="translate(1514, 18)">
+    <rect class="button-rect" width="78" height="28" rx="5" />
+    <text x="39" y="15" class="button-label">Reset</text>
+  </g>
+  <g id="frames"></g>
+  <script><![CDATA[
+const tree = {"name":"execute","value":767,"children":[{"name":"execute","value":767,"children":[{"name":"entrypoint @ 0xfa9","value":767,"children":[{"name":"clear_wallet::clear_wallet::execute @ 0x139b","value":673,"children":[{"name":"<quasar_lang::remaining::RemainingIter as core::iter::traits::iterator::Iterator>::next @ 0x7051","value":29,"children":[]},{"name":"[syscall] sol_curve_validate_point","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":1,"children":[]},{"name":"[syscall] sol_try_find_program_address","value":1,"children":[]},{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]},{"name":"str::converts::from_utf8 @ 0x73e2","value":139,"children":[]}]}]}]}]};
+const SVG_NS = "http://www.w3.org/2000/svg";
+const FRAME_HEIGHT = 22;
+const FRAME_GAP = 1;
+const SIDE_PADDING = 8;
+const TOP_PADDING = 54;
+const BOTTOM_PADDING = 12;
+const SVG_WIDTH = 1600;
+const SVG_HEIGHT = 181;
+const INNER_WIDTH = SVG_WIDTH - SIDE_PADDING * 2;
+const PROGRAM_NAME = "execute";
+const TOTAL_CU = 767;
+
+let focusPath = [];
+
+function getNode(path) {
+  let node = tree;
+  for (const index of path) {
+    node = node.children[index];
+  }
+  return node;
+}
+
+function maxDepth(node) {
+  if (!node.children.length) {
+    return 0;
+  }
+  let depth = 0;
+  for (const child of node.children) {
+    depth = Math.max(depth, 1 + maxDepth(child));
+  }
+  return depth;
+}
+
+function focusName() {
+  return focusPath.length ? getNode(focusPath).name : PROGRAM_NAME;
+}
+
+function updateHeader() {
+  const subtitle = document.getElementById("subtitle");
+  const resetButton = document.getElementById("reset-button");
+  subtitle.textContent = focusPath.length
+    ? `Focused: ${focusName()} | Total CU: ${TOTAL_CU}`
+    : `Total CU: ${TOTAL_CU}`;
+  resetButton.style.opacity = focusPath.length ? "1" : "0.55";
+}
+
+function resetZoom(event) {
+  if (event) {
+    event.stopPropagation();
+  }
+  focusPath = [];
+  renderFrames();
+}
+
+function zoomTo(path, event) {
+  if (event) {
+    event.stopPropagation();
+  }
+  focusPath = path.slice();
+  renderFrames();
+}
+
+function truncateLabel(label, width) {
+  const maxChars = Math.floor(width / 7);
+  if (maxChars < 4 || label.length <= maxChars) {
+    return label;
+  }
+  return label.slice(0, maxChars - 3) + "...";
+}
+
+function hashLabel(label) {
+  let hash = 2166136261 >>> 0;
+  for (let index = 0; index < label.length; index += 1) {
+    hash ^= label.charCodeAt(index);
+    hash = Math.imul(hash, 16777619) >>> 0;
+  }
+  return hash >>> 0;
+}
+
+function frameColor(label) {
+  const t = (hashLabel(label) % 10000) / 10000;
+  const red = 255;
+  const green = Math.round(235 + (52 - 235) * t);
+  const blue = Math.round(130 + (0 - 130) * t);
+  return { red, green, blue };
+}
+
+function colorToCss(color) {
+  return `rgb(${color.red}, ${color.green}, ${color.blue})`;
+}
+
+function labelColor(color) {
+  const luminance = (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
+  return luminance < 0.52 ? "#fffdf8" : "#2b1600";
+}
+
+function createSvgElement(tagName, attributes = {}) {
+  const element = document.createElementNS(SVG_NS, tagName);
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, String(value));
+  }
+  return element;
+}
+
+function renderNode(parent, node, depth, x, width, subtreeDepth, path) {
+  if (!node.value || width <= 0.5) {
+    return;
+  }
+
+  const y = TOP_PADDING + (subtreeDepth - depth) * (FRAME_HEIGHT + FRAME_GAP);
+  const fillColor = frameColor(node.name);
+  const label = `${node.name} (${node.value})`;
+  const group = createSvgElement("g");
+  const title = createSvgElement("title");
+  title.textContent = label;
+  group.appendChild(title);
+
+  const rect = createSvgElement("rect", {
+    x,
+    y,
+    width,
+    height: FRAME_HEIGHT,
+    fill: colorToCss(fillColor),
+    stroke: "#ffffff",
+    "stroke-width": 1,
+  });
+  group.appendChild(rect);
+
+  if (path.length || node.children.length) {
+    group.style.cursor = "pointer";
+    group.addEventListener("click", (event) => zoomTo(path, event));
+  }
+
+  if (width > 48) {
+    const text = createSvgElement("text", {
+      x: x + 6,
+      y: y + FRAME_HEIGHT / 2,
+      "dominant-baseline": "middle",
+      "font-family": "monospace",
+      "font-size": 12,
+      fill: labelColor(fillColor),
+    });
+    text.textContent = truncateLabel(label, width);
+    group.appendChild(text);
+  }
+
+  parent.appendChild(group);
+
+  let childX = x;
+  for (let index = 0; index < node.children.length; index += 1) {
+    const child = node.children[index];
+    const childWidth = width * (child.value / node.value);
+    renderNode(parent, child, depth + 1, childX, childWidth, subtreeDepth, path.concat(index));
+    childX += childWidth;
+  }
+}
+
+function renderFrames() {
+  const frames = document.getElementById("frames");
+  while (frames.firstChild) {
+    frames.removeChild(frames.firstChild);
+  }
+
+  const focus = getNode(focusPath);
+  const subtreeDepth = maxDepth(focus);
+  renderNode(frames, focus, 0, SIDE_PADDING, INNER_WIDTH, subtreeDepth, focusPath.slice());
+  updateHeader();
+}
+
+document.getElementById("reset-button").addEventListener("click", resetZoom);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderFrames, { once: true });
+} else {
+  renderFrames();
+}
+  ]]></script>
+</svg>

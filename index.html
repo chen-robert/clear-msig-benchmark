@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>clear-msig: anchor v2 vs quasar</title>
+<style>
+  :root {
+    --fg: #111;
+    --fg-muted: #555;
+    --fg-faint: #888;
+    --line: #eee;
+    --line-strong: #ddd;
+    --win: #080;
+    --loss: #c00;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font: 13px/1.5 -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--fg);
+    background: #fff;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 32px 80px;
+  }
+  h1 { font: 600 20px/1.2 -apple-system, "Segoe UI", sans-serif; margin: 0 0 4px; }
+  h2 { font: 600 14px/1 -apple-system, "Segoe UI", sans-serif; margin: 40px 0 12px; }
+  h3 {
+    font: 500 12px/1 "SF Mono", Menlo, Consolas, monospace;
+    color: var(--fg-muted);
+    margin: 32px 0 10px;
+    letter-spacing: 0.02em;
+  }
+  .meta { color: var(--fg-faint); font-size: 12px; margin-bottom: 32px; }
+  table { width: 100%; border-collapse: collapse; font: 12px/1.5 "SF Mono", Menlo, Consolas, monospace; }
+  th {
+    text-align: right;
+    font-weight: 500;
+    color: var(--fg-muted);
+    padding: 6px 0 6px 16px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  th.l { text-align: left; padding-left: 0; }
+  td {
+    text-align: right;
+    padding: 6px 0 6px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  td.l { text-align: left; padding-left: 0; color: var(--fg); }
+  td.win, th.win { color: var(--win); }
+  td.loss, th.loss { color: var(--loss); }
+  td.na { color: var(--fg-faint); }
+  sup { font-size: 9px; }
+  code { font: 11px "SF Mono", Menlo, Consolas, monospace; color: var(--fg-muted); }
+  .note { font-size: 11px; color: var(--fg-faint); margin: 12px 0 0; line-height: 1.5; }
+  .flame-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 8px 0 24px;
+  }
+  .flame { display: flex; flex-direction: column; min-width: 0; }
+  .flame-label {
+    font: 11px "SF Mono", Menlo, Consolas, monospace;
+    color: var(--fg-faint);
+    margin-bottom: 6px;
+  }
+  .flame a { display: block; border: 1px solid var(--line); }
+  .flame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .flame-miss {
+    font: 11px "SF Mono", Menlo, Consolas, monospace;
+    color: var(--fg-faint);
+    padding: 40px 0;
+    text-align: center;
+    border: 1px dashed var(--line-strong);
+  }
+</style>
+</head>
+<body>
+<h1>clear-msig: anchor v2 vs quasar</h1>
+<div class="meta">cargo build-sbf · platform-tools v1.52 · same toolchain for both programs</div>
+
+<h2>Results</h2>
+<table>
+<thead><tr><th class="l">Metric</th><th>Anchor v2</th><th>Quasar</th><th>Δ</th></tr></thead>
+<tbody>
+<tr><td class="l">binary_size</td><td>194.7 KB</td><td>261.9 KB</td><td class="loss">+34.5%</td></tr>
+<tr><td class="l">create_wallet</td><td>10471 CU</td><td>23038 CU</td><td class="loss">+120.0%</td></tr>
+<tr><td class="l">propose</td><td>38984 CU</td><td>40437 CU</td><td class="loss">+3.7%</td></tr>
+<tr><td class="l">approve</td><td>37033 CU</td><td>37188 CU</td><td class="loss">+0.4%</td></tr>
+<tr><td class="l">cancel</td><td>37018 CU</td><td>37175 CU</td><td class="loss">+0.4%</td></tr>
+<tr><td class="l">execute</td><td>1600 CU</td><td>2683 CU</td><td class="loss">+67.7%</td></tr>
+<tr><td class="l">cleanup_proposal</td><td>279 CU</td><td class="na">N/A<sup>*</sup></td><td class="na">—</td></tr>
+</tbody>
+</table>
+<p class="note"><sup>*</sup> Quasar cleanup_proposal fails under LiteSVM 0.10 with <code>UnbalancedInstruction</code>. Quasar's manual close() sequence is semantically valid on real Solana but trips LiteSVM's stricter intermediate-state validation.</p>
+
+<h2>Flamegraphs</h2>
+<p class="note">Click any SVG to open it in a new tab for interactive zoom. Widths are proportional to reachable CU — values beside each label are the top-level totals.</p>
+<h3>create_wallet</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 10471 CU</div>
+<a href="flamegraphs/anchor_v2_create_wallet.svg" target="_blank"><img src="flamegraphs/anchor_v2_create_wallet.svg" alt="flamegraphs/anchor_v2_create_wallet.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar · 23038 CU</div>
+<a href="flamegraphs/quasar_create_wallet.svg" target="_blank"><img src="flamegraphs/quasar_create_wallet.svg" alt="flamegraphs/quasar_create_wallet.svg"></a>
+</div>
+</div>
+<h3>propose</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 38984 CU</div>
+<a href="flamegraphs/anchor_v2_propose.svg" target="_blank"><img src="flamegraphs/anchor_v2_propose.svg" alt="flamegraphs/anchor_v2_propose.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar · 40437 CU</div>
+<a href="flamegraphs/quasar_propose.svg" target="_blank"><img src="flamegraphs/quasar_propose.svg" alt="flamegraphs/quasar_propose.svg"></a>
+</div>
+</div>
+<h3>approve</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 37033 CU</div>
+<a href="flamegraphs/anchor_v2_approve.svg" target="_blank"><img src="flamegraphs/anchor_v2_approve.svg" alt="flamegraphs/anchor_v2_approve.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar · 37188 CU</div>
+<a href="flamegraphs/quasar_approve.svg" target="_blank"><img src="flamegraphs/quasar_approve.svg" alt="flamegraphs/quasar_approve.svg"></a>
+</div>
+</div>
+<h3>cancel</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 37018 CU</div>
+<a href="flamegraphs/anchor_v2_cancel.svg" target="_blank"><img src="flamegraphs/anchor_v2_cancel.svg" alt="flamegraphs/anchor_v2_cancel.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar · 37175 CU</div>
+<a href="flamegraphs/quasar_cancel.svg" target="_blank"><img src="flamegraphs/quasar_cancel.svg" alt="flamegraphs/quasar_cancel.svg"></a>
+</div>
+</div>
+<h3>execute</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 1600 CU</div>
+<a href="flamegraphs/anchor_v2_execute.svg" target="_blank"><img src="flamegraphs/anchor_v2_execute.svg" alt="flamegraphs/anchor_v2_execute.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar · 2683 CU</div>
+<a href="flamegraphs/quasar_execute.svg" target="_blank"><img src="flamegraphs/quasar_execute.svg" alt="flamegraphs/quasar_execute.svg"></a>
+</div>
+</div>
+<h3>cleanup_proposal</h3>
+<div class="flame-grid">
+<div class="flame">
+<div class="flame-label">anchor v2 · 279 CU</div>
+<a href="flamegraphs/anchor_v2_cleanup_proposal.svg" target="_blank"><img src="flamegraphs/anchor_v2_cleanup_proposal.svg" alt="flamegraphs/anchor_v2_cleanup_proposal.svg"></a>
+</div>
+<div class="flame">
+<div class="flame-label">quasar</div>
+<div class="flame-miss">not generated</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+[submodule "clear-msig"]
+	path = clear-msig
+	url = https://github.com/ChewingGlass/clear-msig.git
