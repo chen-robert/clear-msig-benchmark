@@ -65,10 +65,11 @@
     margin-bottom: 6px;
   }
   .flame a { display: block; border: 1px solid var(--line); }
-  .flame img {
+  .flame object {
     display: block;
     width: 100%;
     height: auto;
+    pointer-events: none;
   }
   .flame-miss {
     font: 11px "SF Mono", Menlo, Consolas, monospace;
@@ -87,13 +88,13 @@
 <table>
 <thead><tr><th class="l">Metric</th><th>Anchor v2</th><th>Quasar</th><th>Δ</th></tr></thead>
 <tbody>
-<tr><td class="l">binary_size</td><td>194.7 KB</td><td>261.9 KB</td><td class="loss">+34.5%</td></tr>
-<tr><td class="l">create_wallet</td><td>10471 CU</td><td>23038 CU</td><td class="loss">+120.0%</td></tr>
-<tr><td class="l">propose</td><td>38984 CU</td><td>40437 CU</td><td class="loss">+3.7%</td></tr>
-<tr><td class="l">approve</td><td>37033 CU</td><td>37188 CU</td><td class="loss">+0.4%</td></tr>
-<tr><td class="l">cancel</td><td>37018 CU</td><td>37175 CU</td><td class="loss">+0.4%</td></tr>
-<tr><td class="l">execute</td><td>1600 CU</td><td>2683 CU</td><td class="loss">+67.7%</td></tr>
-<tr><td class="l">cleanup_proposal</td><td>279 CU</td><td class="na">N/A<sup>*</sup></td><td class="na">—</td></tr>
+<tr><td class="l">binary_size</td><td>201.3 KB</td><td>261.9 KB</td><td class="loss">+30.1%</td></tr>
+<tr><td class="l">create_wallet</td><td>8922 CU</td><td>23034 CU</td><td class="loss">+158.2%</td></tr>
+<tr><td class="l">propose</td><td>38739 CU</td><td>40432 CU</td><td class="loss">+4.4%</td></tr>
+<tr><td class="l">approve</td><td>37016 CU</td><td>37188 CU</td><td class="loss">+0.5%</td></tr>
+<tr><td class="l">cancel</td><td>37010 CU</td><td>37175 CU</td><td class="loss">+0.4%</td></tr>
+<tr><td class="l">execute</td><td>1701 CU</td><td>2683 CU</td><td class="loss">+57.7%</td></tr>
+<tr><td class="l">cleanup_proposal</td><td>272 CU</td><td class="na">N/A<sup>*</sup></td><td class="na">—</td></tr>
 </tbody>
 </table>
 <p class="note"><sup>*</sup> Quasar cleanup_proposal fails under LiteSVM 0.10 with <code>UnbalancedInstruction</code>. Quasar's manual close() sequence is semantically valid on real Solana but trips LiteSVM's stricter intermediate-state validation.</p>
@@ -103,63 +104,63 @@
 <h3>create_wallet</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 10471 CU</div>
-<a href="flamegraphs/anchor_v2_create_wallet.svg" target="_blank"><img src="flamegraphs/anchor_v2_create_wallet.svg" alt="flamegraphs/anchor_v2_create_wallet.svg"></a>
+<div class="flame-label">anchor v2 · 8922 CU</div>
+<a href="flamegraphs/anchor_v2_create_wallet.svg" target="_blank"><object data="flamegraphs/anchor_v2_create_wallet.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 204;"></object></a>
 </div>
 <div class="flame">
-<div class="flame-label">quasar · 23038 CU</div>
-<a href="flamegraphs/quasar_create_wallet.svg" target="_blank"><img src="flamegraphs/quasar_create_wallet.svg" alt="flamegraphs/quasar_create_wallet.svg"></a>
+<div class="flame-label">quasar · 23034 CU</div>
+<a href="flamegraphs/quasar_create_wallet.svg" target="_blank"><object data="flamegraphs/quasar_create_wallet.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 250;"></object></a>
 </div>
 </div>
 <h3>propose</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 38984 CU</div>
-<a href="flamegraphs/anchor_v2_propose.svg" target="_blank"><img src="flamegraphs/anchor_v2_propose.svg" alt="flamegraphs/anchor_v2_propose.svg"></a>
+<div class="flame-label">anchor v2 · 38739 CU</div>
+<a href="flamegraphs/anchor_v2_propose.svg" target="_blank"><object data="flamegraphs/anchor_v2_propose.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 <div class="flame">
-<div class="flame-label">quasar · 40437 CU</div>
-<a href="flamegraphs/quasar_propose.svg" target="_blank"><img src="flamegraphs/quasar_propose.svg" alt="flamegraphs/quasar_propose.svg"></a>
+<div class="flame-label">quasar · 40432 CU</div>
+<a href="flamegraphs/quasar_propose.svg" target="_blank"><object data="flamegraphs/quasar_propose.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 </div>
 <h3>approve</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 37033 CU</div>
-<a href="flamegraphs/anchor_v2_approve.svg" target="_blank"><img src="flamegraphs/anchor_v2_approve.svg" alt="flamegraphs/anchor_v2_approve.svg"></a>
+<div class="flame-label">anchor v2 · 37016 CU</div>
+<a href="flamegraphs/anchor_v2_approve.svg" target="_blank"><object data="flamegraphs/anchor_v2_approve.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 <div class="flame">
 <div class="flame-label">quasar · 37188 CU</div>
-<a href="flamegraphs/quasar_approve.svg" target="_blank"><img src="flamegraphs/quasar_approve.svg" alt="flamegraphs/quasar_approve.svg"></a>
+<a href="flamegraphs/quasar_approve.svg" target="_blank"><object data="flamegraphs/quasar_approve.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 </div>
 <h3>cancel</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 37018 CU</div>
-<a href="flamegraphs/anchor_v2_cancel.svg" target="_blank"><img src="flamegraphs/anchor_v2_cancel.svg" alt="flamegraphs/anchor_v2_cancel.svg"></a>
+<div class="flame-label">anchor v2 · 37010 CU</div>
+<a href="flamegraphs/anchor_v2_cancel.svg" target="_blank"><object data="flamegraphs/anchor_v2_cancel.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 <div class="flame">
 <div class="flame-label">quasar · 37175 CU</div>
-<a href="flamegraphs/quasar_cancel.svg" target="_blank"><img src="flamegraphs/quasar_cancel.svg" alt="flamegraphs/quasar_cancel.svg"></a>
+<a href="flamegraphs/quasar_cancel.svg" target="_blank"><object data="flamegraphs/quasar_cancel.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 296;"></object></a>
 </div>
 </div>
 <h3>execute</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 1600 CU</div>
-<a href="flamegraphs/anchor_v2_execute.svg" target="_blank"><img src="flamegraphs/anchor_v2_execute.svg" alt="flamegraphs/anchor_v2_execute.svg"></a>
+<div class="flame-label">anchor v2 · 1701 CU</div>
+<a href="flamegraphs/anchor_v2_execute.svg" target="_blank"><object data="flamegraphs/anchor_v2_execute.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 227;"></object></a>
 </div>
 <div class="flame">
 <div class="flame-label">quasar · 2683 CU</div>
-<a href="flamegraphs/quasar_execute.svg" target="_blank"><img src="flamegraphs/quasar_execute.svg" alt="flamegraphs/quasar_execute.svg"></a>
+<a href="flamegraphs/quasar_execute.svg" target="_blank"><object data="flamegraphs/quasar_execute.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 181;"></object></a>
 </div>
 </div>
 <h3>cleanup_proposal</h3>
 <div class="flame-grid">
 <div class="flame">
-<div class="flame-label">anchor v2 · 279 CU</div>
-<a href="flamegraphs/anchor_v2_cleanup_proposal.svg" target="_blank"><img src="flamegraphs/anchor_v2_cleanup_proposal.svg" alt="flamegraphs/anchor_v2_cleanup_proposal.svg"></a>
+<div class="flame-label">anchor v2 · 272 CU</div>
+<a href="flamegraphs/anchor_v2_cleanup_proposal.svg" target="_blank"><object data="flamegraphs/anchor_v2_cleanup_proposal.svg" type="image/svg+xml" style="aspect-ratio: 1600 / 158;"></object></a>
 </div>
 <div class="flame">
 <div class="flame-label">quasar</div>

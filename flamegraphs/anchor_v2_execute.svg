@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 250">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 227">
   <style>
     .title { font: 700 24px monospace; fill: #1f1f1f; }
     .subtitle { font: 14px monospace; fill: #4b4b4b; }
     .button-label { font: 12px monospace; fill: #222; dominant-baseline: middle; text-anchor: middle; }
     .button-rect { fill: #f3f3f3; stroke: #b8b8b8; stroke-width: 1; }
   </style>
-  <rect width="1600" height="250" fill="#ffffff" />
+  <rect width="1600" height="227" fill="#ffffff" />
   <text x="8" y="30" class="title">execute flamegraph</text>
-  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 748 (does not include CPI or syscall CU)</text>
+  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 859 (does not include CPI or syscall CU)</text>
   <g id="reset-button" transform="translate(1514, 18)">
     <rect class="button-rect" width="78" height="28" rx="5" />
     <text x="39" y="15" class="button-label">Reset</text>
   </g>
   <g id="frames"></g>
   <script><![CDATA[
-const tree = {"name":"execute","value":748,"children":[{"name":"execute","value":748,"children":[{"name":"entrypoint @ 0x2282","value":748,"children":[{"name":"clear_msig_anchor::entry @ 0x1efc","value":674,"children":[{"name":"<clear_msig_anchor::instructions::execute::Execute as anchor_lang_v2::dispatch::TryAccounts>::try_accounts @ 0x1c7f","value":365,"children":[{"name":"[syscall] sol_curve_validate_point","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":1,"children":[]}]},{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"execute::Execute::execute @ 0x3a1","value":187,"children":[{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]},{"name":"instructions::execute::validate_target_intent_for_modification @ 0x994","value":115,"children":[{"name":"function_2479 @ 0x9af","value":91,"children":[{"name":"[syscall] sol_curve_validate_point","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":1,"children":[]}]}]}]},{"name":"memcpy @ 0x575c","value":8,"children":[{"name":"[syscall] sol_memcpy_","value":2,"children":[]}]}]}]}]}]};
+const tree = {"name":"execute","value":859,"children":[{"name":"execute","value":859,"children":[{"name":"entrypoint @ 0x15c4","value":859,"children":[{"name":"[syscall] sol_curve_validate_point","value":1,"children":[]},{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":1,"children":[]},{"name":"cursor::AccountBitvec::get @ 0x5232","value":36,"children":[]},{"name":"execute::Execute::execute @ 0x632","value":318,"children":[{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]},{"name":"__rustc[95bceff0ff0a01a5]::__rust_no_alloc_shim_is_unstable_v2 @ 0x2692","value":2,"children":[]},{"name":"instructions::execute::validate_target_intent_for_modification @ 0xd1b","value":116,"children":[{"name":"function_3382 @ 0xd36","value":92,"children":[{"name":"[syscall] sol_curve_validate_point","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":1,"children":[]}]}]},{"name":"memcpy @ 0x5a21","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]}]}]}]}]};
 const SVG_NS = "http://www.w3.org/2000/svg";
 const FRAME_HEIGHT = 22;
 const FRAME_GAP = 1;
@@ -22,10 +22,10 @@ const SIDE_PADDING = 8;
 const TOP_PADDING = 54;
 const BOTTOM_PADDING = 12;
 const SVG_WIDTH = 1600;
-const SVG_HEIGHT = 250;
+const SVG_HEIGHT = 227;
 const INNER_WIDTH = SVG_WIDTH - SIDE_PADDING * 2;
 const PROGRAM_NAME = "execute";
-const TOTAL_CU = 748;
+const TOTAL_CU = 859;
 
 let focusPath = [];
 

@@ -8,6 +8,9 @@ mod state;
 pub use state::*;
 pub mod utils;
 
+#[cfg(test)]
+mod tests;
+
 declare_id!("msigVi8dMnmLQUuCbakipEMZhzen516QRHxGz7iX5Xv");
 
 #[program]
@@ -38,14 +41,12 @@ pub mod clear_msig_anchor {
 
     pub fn propose(
         ctx: &mut Context<Propose>,
-        proposal_index: u64,
         expiry: i64,
         proposer_pubkey: [u8; 32],
         signature: [u8; 64],
         params_data: &[u8],
     ) -> Result<()> {
         ctx.accounts.propose(
-            proposal_index,
             ProposeArgs {
                 expiry,
                 proposer_pubkey: &proposer_pubkey,

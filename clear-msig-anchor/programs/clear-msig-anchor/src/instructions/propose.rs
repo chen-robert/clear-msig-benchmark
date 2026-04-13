@@ -10,7 +10,6 @@ use crate::{
 };
 
 #[derive(Accounts)]
-#[instruction(proposal_index: u64)]
 pub struct Propose {
     #[account(mut)]
     pub payer: Signer,
@@ -25,7 +24,7 @@ pub struct Propose {
     #[account(
         init,
         payer = payer,
-        seeds = [b"proposal", intent, &proposal_index.to_le_bytes()],
+        seeds = [b"proposal", intent, &wallet.proposal_index.get().to_le_bytes()],
         bump,
         space = Proposal::SPACE,
     )]
@@ -43,15 +42,10 @@ pub struct ProposeArgs<'a> {
 impl Propose {
     pub fn propose(
         &mut self,
-        proposal_index: u64,
         args: ProposeArgs<'_>,
         bumps: &ProposeBumps,
     ) -> Result<()> {
-        // Verify the client-provided proposal_index matches the wallet's current index
-        require!(
-            proposal_index == self.wallet.proposal_index.get(),
-            ProgramError::InvalidArgument
-        );
+        let proposal_index = self.wallet.proposal_index.get();
 
         let clock = Clock::get()?;
         require!(args.expiry > clock.unix_timestamp, ProgramError::InvalidArgument);

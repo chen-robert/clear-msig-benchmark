@@ -248,7 +248,10 @@ pub fn build_propose_data(
     params_data: &[u8],
 ) -> Vec<u8> {
     let mut data = kind.discriminator("propose");
-    data.extend_from_slice(&proposal_index.to_le_bytes());
+    // Anchor v2 loads proposal_index from the wallet account; Quasar still takes it as an arg.
+    if matches!(kind, ProgramKind::Quasar) {
+        data.extend_from_slice(&proposal_index.to_le_bytes());
+    }
     data.extend_from_slice(&expiry.to_le_bytes());
     data.extend_from_slice(proposer_pubkey);
     data.extend_from_slice(signature);

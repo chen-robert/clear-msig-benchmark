@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 227">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 204">
   <style>
     .title { font: 700 24px monospace; fill: #1f1f1f; }
     .subtitle { font: 14px monospace; fill: #4b4b4b; }
     .button-label { font: 12px monospace; fill: #222; dominant-baseline: middle; text-anchor: middle; }
     .button-rect { fill: #f3f3f3; stroke: #b8b8b8; stroke-width: 1; }
   </style>
-  <rect width="1600" height="227" fill="#ffffff" />
+  <rect width="1600" height="204" fill="#ffffff" />
   <text x="8" y="30" class="title">create_wallet flamegraph</text>
-  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 2020 (does not include CPI or syscall CU)</text>
+  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 1959 (does not include CPI or syscall CU)</text>
   <g id="reset-button" transform="translate(1514, 18)">
     <rect class="button-rect" width="78" height="28" rx="5" />
     <text x="39" y="15" class="button-label">Reset</text>
   </g>
   <g id="frames"></g>
   <script><![CDATA[
-const tree = {"name":"create_wallet","value":2020,"children":[{"name":"create_wallet","value":2020,"children":[{"name":"entrypoint @ 0x2282","value":2020,"children":[{"name":"clear_msig_anchor::entry @ 0x1efc","value":1937,"children":[{"name":"<clear_msig_anchor::instructions::create_wallet::CreateWallet as anchor_lang_v2::dispatch::TryAccounts>::try_accounts @ 0x123c","value":1484,"children":[{"name":"[syscall] sol_curve_validate_point","value":12,"children":[]},{"name":"[syscall] sol_invoke_signed_c","value":4,"children":[]},{"name":"[syscall] sol_sha256","value":12,"children":[]},{"name":"iterator::Iterator::try_fold @ 0x15","value":342,"children":[]}]},{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"create_wallet::CreateWallet::create @ 0x61","value":252,"children":[{"name":"[syscall] sol_sha256","value":1,"children":[]},{"name":"memcpy @ 0x575c","value":28,"children":[{"name":"[syscall] sol_memcpy_","value":7,"children":[]}]}]},{"name":"memcpy @ 0x575c","value":8,"children":[{"name":"[syscall] sol_memcpy_","value":2,"children":[]}]}]}]}]}]};
+const tree = {"name":"create_wallet","value":1959,"children":[{"name":"create_wallet","value":1959,"children":[{"name":"entrypoint @ 0x15c4","value":1959,"children":[{"name":"[syscall] sol_invoke_signed_c","value":4,"children":[]},{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"[syscall] sol_sha256","value":12,"children":[]},{"name":"[syscall] syscall_0x13c1b505","value":3,"children":[]},{"name":"anchor_lang_v2::cpi::rent_exempt_lamports @ 0x0","value":18,"children":[{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]}]},{"name":"create_wallet::CreateWallet::create @ 0x1ba","value":459,"children":[{"name":"[syscall] sol_sha256","value":1,"children":[]},{"name":"memcpy @ 0x5a21","value":28,"children":[{"name":"[syscall] sol_memcpy_","value":7,"children":[]}]}]},{"name":"cursor::AccountBitvec::get @ 0x5232","value":45,"children":[]},{"name":"iterator::Iterator::try_fold @ 0xc1","value":228,"children":[]}]}]}]};
 const SVG_NS = "http://www.w3.org/2000/svg";
 const FRAME_HEIGHT = 22;
 const FRAME_GAP = 1;
@@ -22,10 +22,10 @@ const SIDE_PADDING = 8;
 const TOP_PADDING = 54;
 const BOTTOM_PADDING = 12;
 const SVG_WIDTH = 1600;
-const SVG_HEIGHT = 227;
+const SVG_HEIGHT = 204;
 const INNER_WIDTH = SVG_WIDTH - SIDE_PADDING * 2;
 const PROGRAM_NAME = "create_wallet";
-const TOTAL_CU = 2020;
+const TOTAL_CU = 1959;
 
 let focusPath = [];
 

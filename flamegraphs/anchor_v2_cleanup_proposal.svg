@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 181">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 158">
   <style>
     .title { font: 700 24px monospace; fill: #1f1f1f; }
     .subtitle { font: 14px monospace; fill: #4b4b4b; }
     .button-label { font: 12px monospace; fill: #222; dominant-baseline: middle; text-anchor: middle; }
     .button-rect { fill: #f3f3f3; stroke: #b8b8b8; stroke-width: 1; }
   </style>
-  <rect width="1600" height="181" fill="#ffffff" />
+  <rect width="1600" height="158" fill="#ffffff" />
   <text x="8" y="30" class="title">cleanup_proposal flamegraph</text>
-  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 179 (does not include CPI or syscall CU)</text>
+  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 172 (does not include CPI or syscall CU)</text>
   <g id="reset-button" transform="translate(1514, 18)">
     <rect class="button-rect" width="78" height="28" rx="5" />
     <text x="39" y="15" class="button-label">Reset</text>
   </g>
   <g id="frames"></g>
   <script><![CDATA[
-const tree = {"name":"cleanup_proposal","value":179,"children":[{"name":"cleanup_proposal","value":179,"children":[{"name":"entrypoint @ 0x2282","value":179,"children":[{"name":"clear_msig_anchor::entry @ 0x1efc","value":145,"children":[{"name":"<clear_msig_anchor::instructions::cleanup_proposal::CleanupProposal as anchor_lang_v2::dispatch::TryAccounts>::try_accounts @ 0x1e85","value":71,"children":[]},{"name":"[syscall] sol_log_","value":1,"children":[]}]}]}]}]};
+const tree = {"name":"cleanup_proposal","value":172,"children":[{"name":"cleanup_proposal","value":172,"children":[{"name":"entrypoint @ 0x15c4","value":172,"children":[{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"cursor::AccountBitvec::get @ 0x5232","value":9,"children":[]}]}]}]};
 const SVG_NS = "http://www.w3.org/2000/svg";
 const FRAME_HEIGHT = 22;
 const FRAME_GAP = 1;
@@ -22,10 +22,10 @@ const SIDE_PADDING = 8;
 const TOP_PADDING = 54;
 const BOTTOM_PADDING = 12;
 const SVG_WIDTH = 1600;
-const SVG_HEIGHT = 181;
+const SVG_HEIGHT = 158;
 const INNER_WIDTH = SVG_WIDTH - SIDE_PADDING * 2;
 const PROGRAM_NAME = "cleanup_proposal";
-const TOTAL_CU = 179;
+const TOTAL_CU = 172;
 
 let focusPath = [];
 

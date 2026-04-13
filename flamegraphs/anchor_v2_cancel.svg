@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 319">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 296">
   <style>
     .title { font: 700 24px monospace; fill: #1f1f1f; }
     .subtitle { font: 14px monospace; fill: #4b4b4b; }
     .button-label { font: 12px monospace; fill: #222; dominant-baseline: middle; text-anchor: middle; }
     .button-rect { fill: #f3f3f3; stroke: #b8b8b8; stroke-width: 1; }
   </style>
-  <rect width="1600" height="319" fill="#ffffff" />
+  <rect width="1600" height="296" fill="#ffffff" />
   <text x="8" y="30" class="title">cancel flamegraph</text>
-  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 27187 (does not include CPI or syscall CU)</text>
+  <text id="subtitle" x="8" y="50" class="subtitle">In-program instructions traced: 27179 (does not include CPI or syscall CU)</text>
   <g id="reset-button" transform="translate(1514, 18)">
     <rect class="button-rect" width="78" height="28" rx="5" />
     <text x="39" y="15" class="button-label">Reset</text>
   </g>
   <g id="frames"></g>
   <script><![CDATA[
-const tree = {"name":"cancel","value":27187,"children":[{"name":"cancel","value":27187,"children":[{"name":"entrypoint @ 0x2282","value":27187,"children":[{"name":"clear_msig_anchor::entry @ 0x1efc","value":27139,"children":[{"name":"<clear_msig_anchor::instructions::cancel::Cancel as anchor_lang_v2::dispatch::TryAccounts>::try_accounts @ 0x1b5b","value":198,"children":[]},{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"cancel::Cancel::cancel @ 0x2ee","value":26783,"children":[{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]},{"name":"brine_ed25519::sig_verify @ 0x240c","value":25225,"children":[{"name":"edwards::target_arch::multiply_edwards @ 0x2637","value":100,"children":[{"name":"[syscall] sol_curve_group_op","value":4,"children":[]}]},{"name":"edwards::target_arch::subtract_edwards @ 0x261e","value":25,"children":[{"name":"[syscall] sol_curve_group_op","value":1,"children":[]}]},{"name":"edwards::target_arch::validate_edwards @ 0x2613","value":20,"children":[{"name":"[syscall] sol_curve_validate_point","value":2,"children":[]}]},{"name":"memcpy @ 0x575c","value":16,"children":[{"name":"[syscall] sol_memcpy_","value":4,"children":[]}]},{"name":"memset @ 0x5760","value":10,"children":[{"name":"[syscall] sol_memset_","value":2,"children":[]}]},{"name":"scalar::Scalar::from_bytes_mod_order_wide @ 0x2653","value":5699,"children":[{"name":"scalar::Scalar52::montgomery_mul @ 0x2c71","value":5302,"children":[{"name":"__multi3 @ 0x5ab6","value":3489,"children":[]}]}]},{"name":"scalar::Scalar::from_canonical_bytes @ 0x27ec","value":3373,"children":[{"name":"scalar::Scalar::reduce @ 0x2860","value":2788,"children":[{"name":"__multi3 @ 0x5ab6","value":1748,"children":[]},{"name":"scalar::Scalar::unpack @ 0x281d","value":66,"children":[]}]},{"name":"subtle::black_box @ 0x2650","value":105,"children":[]}]},{"name":"sha2::sha512::compress512 @ 0x3029","value":15594,"children":[]}]},{"name":"memset @ 0x5760","value":5,"children":[{"name":"[syscall] sol_memset_","value":1,"children":[]}]},{"name":"message::MessageBuilder::build_message_for_intent @ 0xdcd","value":1421,"children":[{"name":"message::MessageBuilder::build_remove_intent_message @ 0x115a","value":1387,"children":[{"name":"memcpy @ 0x575c","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]},{"name":"message::MessageBuilder::push_header @ 0xd83","value":1259,"children":[{"name":"memcpy @ 0x575c","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]},{"name":"utils::datetime::format_timestamp @ 0xbb7","value":1192,"children":[{"name":"__divdi3 @ 0x5aa1","value":999,"children":[{"name":"int::specialized_div_rem::u64_div_rem @ 0x5a07","value":793,"children":[]}]}]}]},{"name":"message::MessageBuilder::push_u64 @ 0xc80","value":54,"children":[{"name":"memcpy @ 0x575c","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]}]}]}]}]},{"name":"memcpy @ 0x575c","value":8,"children":[{"name":"[syscall] sol_memcpy_","value":2,"children":[]}]}]}]}]}]};
+const tree = {"name":"cancel","value":27179,"children":[{"name":"cancel","value":27179,"children":[{"name":"entrypoint @ 0x15c4","value":27179,"children":[{"name":"[syscall] sol_log_","value":1,"children":[]},{"name":"cancel::Cancel::cancel @ 0x55a","value":26793,"children":[{"name":"[syscall] syscall_0x13c1b505","value":1,"children":[]},{"name":"brine_ed25519::sig_verify @ 0x2693","value":25225,"children":[{"name":"edwards::target_arch::multiply_edwards @ 0x28be","value":100,"children":[{"name":"[syscall] sol_curve_group_op","value":4,"children":[]}]},{"name":"edwards::target_arch::subtract_edwards @ 0x28a5","value":25,"children":[{"name":"[syscall] sol_curve_group_op","value":1,"children":[]}]},{"name":"edwards::target_arch::validate_edwards @ 0x289a","value":20,"children":[{"name":"[syscall] sol_curve_validate_point","value":2,"children":[]}]},{"name":"memcpy @ 0x5a21","value":16,"children":[{"name":"[syscall] sol_memcpy_","value":4,"children":[]}]},{"name":"memset @ 0x5a25","value":10,"children":[{"name":"[syscall] sol_memset_","value":2,"children":[]}]},{"name":"scalar::Scalar::from_bytes_mod_order_wide @ 0x28da","value":5699,"children":[{"name":"scalar::Scalar52::montgomery_mul @ 0x2ef8","value":5302,"children":[{"name":"__multi3 @ 0x5d7b","value":3489,"children":[]}]}]},{"name":"scalar::Scalar::from_canonical_bytes @ 0x2a73","value":3373,"children":[{"name":"scalar::Scalar::reduce @ 0x2ae7","value":2788,"children":[{"name":"__multi3 @ 0x5d7b","value":1748,"children":[]},{"name":"scalar::Scalar::unpack @ 0x2aa4","value":66,"children":[]}]},{"name":"subtle::black_box @ 0x28d7","value":105,"children":[]}]},{"name":"sha2::sha512::compress512 @ 0x32b0","value":15594,"children":[]}]},{"name":"memset @ 0x5a25","value":5,"children":[{"name":"[syscall] sol_memset_","value":1,"children":[]}]},{"name":"message::MessageBuilder::build_message_for_intent @ 0x1155","value":1421,"children":[{"name":"message::MessageBuilder::build_remove_intent_message @ 0x14e2","value":1387,"children":[{"name":"memcpy @ 0x5a21","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]},{"name":"message::MessageBuilder::push_header @ 0x110b","value":1259,"children":[{"name":"memcpy @ 0x5a21","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]},{"name":"utils::datetime::format_timestamp @ 0xf3f","value":1192,"children":[{"name":"__divdi3 @ 0x5d66","value":999,"children":[{"name":"int::specialized_div_rem::u64_div_rem @ 0x5ccc","value":793,"children":[]}]}]}]},{"name":"message::MessageBuilder::push_u64 @ 0x1008","value":54,"children":[{"name":"memcpy @ 0x5a21","value":4,"children":[{"name":"[syscall] sol_memcpy_","value":1,"children":[]}]}]}]}]}]},{"name":"cursor::AccountBitvec::get @ 0x5232","value":18,"children":[]},{"name":"memcpy @ 0x5a21","value":8,"children":[{"name":"[syscall] sol_memcpy_","value":2,"children":[]}]}]}]}]};
 const SVG_NS = "http://www.w3.org/2000/svg";
 const FRAME_HEIGHT = 22;
 const FRAME_GAP = 1;
@@ -22,10 +22,10 @@ const SIDE_PADDING = 8;
 const TOP_PADDING = 54;
 const BOTTOM_PADDING = 12;
 const SVG_WIDTH = 1600;
-const SVG_HEIGHT = 319;
+const SVG_HEIGHT = 296;
 const INNER_WIDTH = SVG_WIDTH - SIDE_PADDING * 2;
 const PROGRAM_NAME = "cancel";
-const TOTAL_CU = 27187;
+const TOTAL_CU = 27179;
 
 let focusPath = [];
 
