@@ -435,8 +435,9 @@ fn build_html_report(
         ));
         if let Some(p) = anchor_path {
             let rel = relpath(p);
+            let (w, h) = svg_aspect_ratio(p);
             s.push_str(&format!(
-                "<a href=\"{rel}\" target=\"_blank\"><img src=\"{rel}\" alt=\"{rel}\"></a>\n"
+                "<a href=\"{rel}\" target=\"_blank\"><object data=\"{rel}\" type=\"image/svg+xml\" style=\"aspect-ratio: {w} / {h};\"></object></a>\n"
             ));
         } else {
             s.push_str("<div class=\"flame-miss\">not generated</div>\n");
@@ -450,8 +451,9 @@ fn build_html_report(
         ));
         if let Some(p) = quasar_path {
             let rel = relpath(p);
+            let (w, h) = svg_aspect_ratio(p);
             s.push_str(&format!(
-                "<a href=\"{rel}\" target=\"_blank\"><img src=\"{rel}\" alt=\"{rel}\"></a>\n"
+                "<a href=\"{rel}\" target=\"_blank\"><object data=\"{rel}\" type=\"image/svg+xml\" style=\"aspect-ratio: {w} / {h};\"></object></a>\n"
             ));
         } else {
             s.push_str("<div class=\"flame-miss\">not generated</div>\n");
@@ -480,6 +482,19 @@ fn relpath(p: &Path) -> String {
         }
     }
     p.to_string_lossy().into_owned()
+}
+
+fn svg_aspect_ratio(p: &Path) -> (u32, u32) {
+    let default = (1600, 227);
+    let Ok(content) = std::fs::read_to_string(p) else { return default };
+    let Some(start) = content.find("viewBox=\"") else { return default };
+    let rest = &content[start + 9..];
+    let Some(end) = rest.find('"') else { return default };
+    let parts: Vec<&str> = rest[..end].split_whitespace().collect();
+    if parts.len() != 4 { return default }
+    let w: u32 = parts[2].parse().unwrap_or(default.0);
+    let h: u32 = parts[3].parse().unwrap_or(default.1);
+    (w, h)
 }
 
 const HTML_HEAD: &str = r#"<!DOCTYPE html>
@@ -549,10 +564,11 @@ const HTML_HEAD: &str = r#"<!DOCTYPE html>
     margin-bottom: 6px;
   }
   .flame a { display: block; border: 1px solid var(--line); }
-  .flame img {
+  .flame object {
     display: block;
     width: 100%;
     height: auto;
+    pointer-events: none;
   }
   .flame-miss {
     font: 11px "SF Mono", Menlo, Consolas, monospace;
