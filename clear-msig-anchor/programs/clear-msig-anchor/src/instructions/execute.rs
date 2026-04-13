@@ -53,13 +53,13 @@ impl Execute {
             ProgramError::InvalidArgument
         );
 
-        let remaining = ctx.remaining_accounts;
+        let remaining = ctx.remaining_accounts();
 
         match ctx.accounts.intent.intent_type {
-            IntentType::AddIntent => Self::execute_add_intent(ctx, remaining)?,
-            IntentType::RemoveIntent => Self::execute_remove_intent(ctx, remaining)?,
-            IntentType::UpdateIntent => Self::execute_update_intent(ctx, remaining)?,
-            IntentType::Custom => Self::execute_custom(ctx, remaining)?,
+            IntentType::AddIntent => Self::execute_add_intent(ctx, &remaining)?,
+            IntentType::RemoveIntent => Self::execute_remove_intent(ctx, &remaining)?,
+            IntentType::UpdateIntent => Self::execute_update_intent(ctx, &remaining)?,
+            IntentType::Custom => Self::execute_custom(ctx, &remaining)?,
         }
 
         ctx.accounts.proposal.status = ProposalStatus::Executed;
